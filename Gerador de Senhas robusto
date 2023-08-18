@@ -1,0 +1,38 @@
+import random
+import string
+
+def gerar_senha(comprimento, caracteres):
+    caracteres_disponiveis = ""
+    if "maiúsculas" in caracteres:
+        caracteres_disponiveis += string.ascii_uppercase
+    if "minúsculas" in caracteres:
+        caracteres_disponiveis += string.ascii_lowercase
+    if "números" in caracteres:
+        caracteres_disponiveis += string.digits
+    if "símbolos" in caracteres:
+        caracteres_disponiveis += string.punctuation
+    
+    if caracteres_disponiveis:
+        senha = ''.join(random.choice(caracteres_disponiveis) for _ in range(comprimento))
+        return senha
+    else:
+        return "Nenhum tipo de caractere selecionado."
+
+def gerar_varias_senhas(qtd_senhas, comprimento, caracteres):
+    senhas = []
+    for _ in range(qtd_senhas):
+        senhas.append(gerar_senha(comprimento, caracteres))
+    return senhas
+
+def main():
+    qtd_senhas = int(input("Quantas senhas você deseja gerar? "))
+    comprimento = int(input("Digite o comprimento das senhas: "))
+    caracteres = input("Quais caracteres você deseja incluir? (maiúsculas, minúsculas, números, símbolos): ").split(', ')
+    
+    senhas = gerar_varias_senhas(qtd_senhas, comprimento, caracteres)
+    
+    for i, senha in enumerate(senhas, start=1):
+        print(f"Senha {i}: {senha}")
+
+if __name__ == "__main__":
+    main()
